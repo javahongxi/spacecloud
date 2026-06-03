@@ -58,7 +58,9 @@ public class DemoController {
     }
 
     @RequestMapping("/dubbo")
-    public String sayHello(String name) {
+    public String sayHello(String name, @RequestHeader(value = "traceparent", required = false) String traceparent) {
+        log.info("traceparent: {}", traceparent);
+        log.info("Consumer calling provider via Dubbo Reference, name: {}", name);
         return demoService.sayHello(name);
     }
 }
