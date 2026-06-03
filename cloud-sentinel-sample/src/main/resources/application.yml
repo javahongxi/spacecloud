@@ -4,6 +4,12 @@ spring:
   application:
     name: cloud-sentinel-sample
   cloud:
+    nacos:
+      username: nacos
+      password: 7fDJZBbiLzO2
+      discovery:
+        server-addr: 127.0.0.1:8848
+        enabled: true
     sentinel:
       transport:
         dashboard: localhost:8081
@@ -45,7 +51,15 @@ spring:
             rule-type: flow
 
 
+feign:
+  sentinel:
+    enabled: true
+
 management:
+  otlp:
+    metrics:
+      export:
+        enabled: false
   endpoint:
     web:
       exposure:
