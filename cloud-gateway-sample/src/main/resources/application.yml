@@ -30,6 +30,14 @@ spring:
                     pattern: /consumer-sample/**
               filters:
                 - StripPrefix=1
+            - id: provider-dubbo-sample
+              uri: lb://provider-dubbo-sample
+              predicates:
+                - name: Path
+                  args:
+                    pattern: /provider-dubbo-sample/**
+              filters:
+                - StripPrefix=1
 
 management:
   tracing:

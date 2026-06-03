@@ -1,4 +1,4 @@
-package org.hongxi.cloud.sample.provider.reactive.service;
+package org.hongxi.cloud.sample.provider.reactive.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @RestController
-public class DemoService {
+public class DemoController {
     @Value("${server.port}")
     private String port;
 

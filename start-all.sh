@@ -30,10 +30,24 @@ start_module() {
   local pid_file="$PID_DIR/$display_name.pid"
   local log_file="$LOG_DIR/$display_name.log"
 
-  # 检查是否已在运行
+  # 检查是否已在运行（通过 PID 文件）
   if [ -f "$pid_file" ] && kill -0 "$(cat "$pid_file")" 2>/dev/null; then
     echo "[$display_name] 已在运行 (PID: $(cat "$pid_file"))"
     return
+  fi
+
+  # 检查端口是否已被占用（服务可能通过其他方式启动）
+  if [ "$port" != "-" ]; then
+    if curl -s -o /dev/null --connect-timeout 2 "http://localhost:$port" 2>/dev/null; then
+      echo "[$display_name] 端口 $port 已被占用，跳过启动"
+      return
+    fi
+  else
+    # Dubbo 模块检查 50051 端口
+    if lsof -i :50051 >/dev/null 2>&1; then
+      echo "[$display_name] 端口 50051 已被占用，跳过启动"
+      return
+    fi
   fi
 
   echo -n "[$display_name] 启动中 (port: $port) ..."
