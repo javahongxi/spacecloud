@@ -56,10 +56,6 @@ feign:
     enabled: true
 
 management:
-  otlp:
-    metrics:
-      export:
-        enabled: false
   endpoint:
     web:
       exposure:
