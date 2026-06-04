@@ -32,6 +32,7 @@ public class DemoController {
     @RequestMapping("/hi")
     public Mono<String> hi(String name, @RequestHeader(value = "traceparent", required = false) String traceparent) {
         log.info("traceparent: {}", traceparent);
+        log.info("Consumer calling provider via WebClient, name: {}", name);
         return webClient
                 .get()
                 .uri("/hello?name={name}", name)
@@ -52,7 +53,9 @@ public class DemoController {
     }
 
     @RequestMapping("/dubbo")
-    public Mono<String> sayHello(String name) {
+    public Mono<String> sayHello(String name, @RequestHeader(value = "traceparent", required = false) String traceparent) {
+        log.info("traceparent: {}", traceparent);
+        log.info("Consumer calling provider via Dubbo Reference, name: {}", name);
         return Mono.fromFuture(demoService.sayHelloAsync(name));
     }
 }
