@@ -1,5 +1,6 @@
 package org.hongxi.cloud.sample.provider.dubbo.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.apache.dubbo.remoting.http12.HttpMethods;
 import org.apache.dubbo.remoting.http12.rest.Mapping;
@@ -8,6 +9,7 @@ import org.apache.dubbo.remoting.http12.rest.ParamType;
 import org.hongxi.cloud.sample.api.EchoRequest;
 import org.hongxi.cloud.sample.api.RestDemoService;
 
+@Slf4j
 @Mapping("/api")
 @DubboService
 public class RestDemoServiceImpl implements RestDemoService {
@@ -54,5 +56,16 @@ public class RestDemoServiceImpl implements RestDemoService {
             return "你好, " + name;
         }
         return "Hello, " + name;
+    }
+
+    /**
+     * GET /api/trace —— Header 示例
+     * curl http://localhost:50051/api/trace
+     */
+    @Mapping(path = "/trace", method = HttpMethods.GET)
+    @Override
+    public String trace(@Param(value ="traceparent", type = ParamType.Header) String traceparent) {
+        log.info("traceparent: {}", traceparent);
+        return traceparent;
     }
 }

@@ -9,4 +9,6 @@ public interface RestDemoService {
     String echo(EchoRequest request);
 
     String greet(String name, String lang);
+
+    String trace(String traceparent);
 }
