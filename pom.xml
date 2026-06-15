@@ -27,6 +27,7 @@
         <module>cloud-sentinel-sample</module>
         <module>cloud-sentinel-gateway-sample</module>
         <module>cloud-stream-sample</module>
+        <module>cloud-consumer-dubbo-sample</module>
     </modules>
 
     <properties>

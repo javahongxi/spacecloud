@@ -11,6 +11,7 @@ Spring Cloud 生态研究（Based on **Spring Boot 3.5.x** and **Spring Cloud Al
 | cloud-consumer-reactive-sample | consumer-reactive | 8763  | Reactive Web Consumer |
 | cloud-provider-reactive-sample | provider-reactive | 8762  | Reactive Web Provider |
 | cloud-provider-dubbo-sample    | provider-dubbo    | 50051 | Dubbo Provider        |
+| cloud-consumer-dubbo-sample    | consumer-dubbo    | -     | Dubbo Consumer        |
 | cloud-sample-api               | api               | -     | interface             |
 | cloud-nacos-config-sample      | config            | 8761  | Nacos Config          |
 | cloud-sentinel-sample          | sentinel          | 8767  | Sentinel              |
