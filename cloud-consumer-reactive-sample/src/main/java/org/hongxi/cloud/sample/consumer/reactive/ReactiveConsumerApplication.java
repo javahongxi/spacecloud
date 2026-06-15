@@ -1,6 +1,5 @@
 package org.hongxi.cloud.sample.consumer.reactive;
 
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +11,6 @@ import reactor.core.publisher.Hooks;
 /**
  * Created by javahongxi on 2026/6/1.
  */
-@EnableDubbo
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ReactiveConsumerApplication {

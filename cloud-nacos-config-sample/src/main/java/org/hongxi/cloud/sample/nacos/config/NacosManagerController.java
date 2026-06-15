@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -22,6 +23,8 @@ import java.util.concurrent.Executors;
 public class NacosManagerController {
 
     private static final String DEFAULT_GROUP = "DEFAULT_GROUP";
+
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @Autowired
     private NacosConfigManager nacosConfigManager;
@@ -86,7 +89,7 @@ public class NacosManagerController {
         configService.addListener(dataId, group, new Listener() {
             @Override
             public Executor getExecutor() {
-                return Executors.newSingleThreadExecutor();
+                return executorService;
             }
 
             @Override

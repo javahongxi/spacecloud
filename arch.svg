@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 680 460" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Spring Cloud Samples 模块调用关系图</title>
+  <desc>展示 spring-cloud-samples 项目中各模块间的调用关系</desc>
+  <defs>
+    <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="at" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ap" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#534AB7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="ad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#0F6E56" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    .th { font-family: -apple-system, sans-serif; font-size: 13px; font-weight: 500; }
+    .ts { font-family: -apple-system, sans-serif; font-size: 11px; font-weight: 400; fill: #888; }
+    .lb { font-family: -apple-system, sans-serif; font-size: 10px; fill: #999; }
+  </style>
+
+  <!-- Row1: User -->
+  <rect x="295" y="22" width="90" height="40" rx="20" fill="#F1EFE8" stroke="#888780" stroke-width="0.5"/>
+  <text class="th" x="340" y="42" text-anchor="middle" dominant-baseline="central" fill="#444441">User</text>
+
+  <!-- Row2: Gateway -->
+  <rect x="235" y="100" width="210" height="52" rx="8" fill="#E6F1FB" stroke="#378ADD" stroke-width="0.5"/>
+  <text class="th" x="340" y="118" text-anchor="middle" dominant-baseline="central" fill="#0C447C">cloud-gateway</text>
+  <text class="ts" x="340" y="138" text-anchor="middle" dominant-baseline="central">API 网关</text>
+
+  <!-- Row3: Consumers -->
+  <rect x="85" y="216" width="190" height="52" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="th" x="180" y="234" text-anchor="middle" dominant-baseline="central" fill="#085041">cloud-consumer</text>
+  <text class="ts" x="180" y="254" text-anchor="middle" dominant-baseline="central">REST 消费者</text>
+
+  <rect x="405" y="216" width="200" height="52" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text class="th" x="505" y="234" text-anchor="middle" dominant-baseline="central" fill="#085041">cloud-consumer-reactive</text>
+  <text class="ts" x="505" y="254" text-anchor="middle" dominant-baseline="central">响应式消费者</text>
+
+  <!-- Row4: Providers -->
+  <rect x="15" y="346" width="170" height="52" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="100" y="364" text-anchor="middle" dominant-baseline="central" fill="#3C3489">cloud-provider</text>
+  <text class="ts" x="100" y="384" text-anchor="middle" dominant-baseline="central">REST 提供者</text>
+
+  <rect x="245" y="346" width="190" height="52" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="340" y="364" text-anchor="middle" dominant-baseline="central" fill="#3C3489">cloud-provider-dubbo</text>
+  <text class="ts" x="340" y="384" text-anchor="middle" dominant-baseline="central">Dubbo 提供者（共享）</text>
+
+  <rect x="490" y="346" width="175" height="52" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="th" x="577" y="364" text-anchor="middle" dominant-baseline="central" fill="#3C3489">cloud-provider-reactive</text>
+  <text class="ts" x="577" y="384" text-anchor="middle" dominant-baseline="central">响应式提供者</text>
+
+  <!-- EDGES -->
+  <!-- User -> Gateway -->
+  <line x1="340" y1="62" x2="340" y2="100" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#ag)"/>
+
+  <!-- Gateway -> consumer -->
+  <path d="M280 152 L185 216" stroke="#0F6E56" stroke-width="1.5" fill="none" marker-end="url(#at)"/>
+  <!-- Gateway -> consumer-reactive -->
+  <path d="M400 152 L500 216" stroke="#0F6E56" stroke-width="1.5" fill="none" marker-end="url(#at)"/>
+
+  <!-- consumer -> provider -->
+  <path d="M148 268 L108 346" stroke="#534AB7" stroke-width="1.5" fill="none" marker-end="url(#ap)"/>
+  <!-- consumer -> provider-dubbo -->
+  <path d="M228 268 L305 346" stroke="#534AB7" stroke-width="1.5" fill="none" marker-end="url(#ap)"/>
+
+  <!-- consumer-reactive -> provider-reactive -->
+  <path d="M548 268 L565 346" stroke="#534AB7" stroke-width="1.5" fill="none" marker-end="url(#ap)"/>
+  <!-- consumer-reactive -> provider-dubbo -->
+  <path d="M455 268 L375 346" stroke="#534AB7" stroke-width="1.5" fill="none" marker-end="url(#ap)"/>
+
+  <!-- Gateway -> provider-dubbo (vertical solid line) -->
+  <line x1="340" y1="152" x2="340" y2="346" stroke="#0F6E56" stroke-width="1.5" marker-end="url(#ad)"/>
+  <text class="lb" x="350" y="254" text-anchor="start" dominant-baseline="central" fill="#0F6E56">REST</text>
+
+  <!-- Legend -->
+  <rect x="40" y="420" width="600" height="30" rx="6" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="0.5"/>
+  <line x1="54" y1="435" x2="78" y2="435" stroke="#0F6E56" stroke-width="1.5"/>
+  <text class="lb" x="82" y="435" dominant-baseline="central" fill="#666">网关路由</text>
+  <line x1="136" y1="435" x2="160" y2="435" stroke="#534AB7" stroke-width="1.5"/>
+  <text class="lb" x="164" y="435" dominant-baseline="central" fill="#666">服务调用</text>
+  <rect x="215" y="429" width="10" height="10" rx="2" fill="#EEEDFE" stroke="#7F77DD" stroke-width="0.5"/>
+  <text class="lb" x="230" y="435" dominant-baseline="central" fill="#666">共享</text>
+  <line x1="270" y1="435" x2="274" y2="435" stroke="#ccc" stroke-width="1"/>
+  <text class="lb" x="280" y="435" dominant-baseline="central" fill="#999" font-style="italic">注册中心使用 Nacos</text>
+</svg>

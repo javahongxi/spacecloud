@@ -3,19 +3,24 @@ Spring Cloud 生态研究（Based on **Spring Boot 3.5.x** and **Spring Cloud Al
 以生产环境可参考为目标，打造一个完整的 Spring Cloud 示例项目。
 
 ### 模块介绍
-模块 | 简称                | 端口    | 说明
------- |-------------------|-------| ------
-cloud-gateway-sample | gateway           | 8764  | Spring Cloud Gateway
-cloud-consumer-sample | consumer          | 8766  | Web Consumer
-cloud-provider-sample | provider          | 8765  | Web Provider
-cloud-consumer-reactive-sample | consumer-reactive | 8763 | Reactive Web Consumer
-cloud-provider-reactive-sample | provider-reactive | 8762 | Reactive Web Provider
-cloud-provider-dubbo-sample | provider-dubbo    | 50051 | Dubbo Provider
-cloud-sample-api | api               | -     | interface
-cloud-nacos-config-sample | config            | 8761  | Nacos Config
-cloud-sentinel-sample | sentinel          | 8767  | Sentinel
-cloud-sentinel-gateway-sample | sentinel-gateway  | 8768  | Gateway with Sentinel
-cloud-stream-sample | stream            | 8769  | Spring Cloud Stream
+| 模块                             | 简称                | 端口    | 说明                    |
+|--------------------------------|-------------------|-------|-----------------------|
+| cloud-gateway-sample           | gateway           | 8764  | Spring Cloud Gateway  |
+| cloud-consumer-sample          | consumer          | 8766  | Web Consumer          |
+| cloud-provider-sample          | provider          | 8765  | Web Provider          |
+| cloud-consumer-reactive-sample | consumer-reactive | 8763  | Reactive Web Consumer |
+| cloud-provider-reactive-sample | provider-reactive | 8762  | Reactive Web Provider |
+| cloud-provider-dubbo-sample    | provider-dubbo    | 50051 | Dubbo Provider        |
+| cloud-sample-api               | api               | -     | interface             |
+| cloud-nacos-config-sample      | config            | 8761  | Nacos Config          |
+| cloud-sentinel-sample          | sentinel          | 8767  | Sentinel              |
+| cloud-sentinel-gateway-sample  | sentinel-gateway  | 8768  | Gateway with Sentinel |
+| cloud-stream-sample            | stream            | 8769  | Spring Cloud Stream   |
+
+<picture>
+  <source srcset="arch.svg" type="image/svg+xml">
+  <img src="arch.png" alt="架构图">
+</picture>
 
 ### 服务注册与发现演示
 首先安装部署nacos，请参考 nacos.io
