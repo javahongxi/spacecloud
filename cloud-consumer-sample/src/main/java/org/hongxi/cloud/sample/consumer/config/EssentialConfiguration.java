@@ -1,46 +1,52 @@
-package org.hongxi.cloud.sample.sentinel;
+package org.hongxi.cloud.sample.consumer.config;
 
 import com.alibaba.cloud.circuitbreaker.sentinel.SentinelCircuitBreakerFactory;
 import com.alibaba.cloud.circuitbreaker.sentinel.SentinelConfigBuilder;
 import com.alibaba.cloud.sentinel.annotation.SentinelRestTemplate;
 import com.alibaba.cloud.sentinel.rest.SentinelClientHttpResponse;
-import com.alibaba.csp.sentinel.datasource.Converter;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
-import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.TypeReference;
+import feign.RequestInterceptor;
+import io.micrometer.tracing.Span;
+import io.micrometer.tracing.Tracer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.circuitbreaker.Customizer;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Collections;
-import java.util.List;
 
 /**
  * Created by javahongxi on 2026/6/1.
  */
 @Slf4j
-@Configuration
-public class CustomConfiguration {
+@Configuration(proxyBeanMethods = false)
+public class EssentialConfiguration {
 
     @Bean
+    @LoadBalanced
     @SentinelRestTemplate(blockHandler = "handleException", blockHandlerClass = ExceptionUtil.class)
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
     }
 
     @Bean
-    public Converter<String, List<FlowRule>> converter() {
-        return source -> JSON.parseObject(source, new TypeReference<>() {});
+    public RequestInterceptor feignTracingInterceptor(Tracer tracer) {
+        return template -> {
+            Span currentSpan = tracer.currentSpan();
+            if (currentSpan != null) {
+                String traceparent = String.format("00-%s-%s-01",
+                        currentSpan.context().traceId(),
+                        currentSpan.context().spanId());
+                template.header("traceparent", traceparent);
+            }
+        };
     }
 
     @Bean
@@ -64,16 +70,6 @@ public class CustomConfiguration {
                 HttpRequest request, byte[] body, ClientHttpRequestExecution execution, BlockException e) {
             log.info("Oops: {}", e.getClass().getCanonicalName());
             return new SentinelClientHttpResponse("custom block info");
-        }
-    }
-
-    @Configuration
-    @EnableWebMvc
-    public static class WebMvcConfiguration implements WebMvcConfigurer {
-
-        @Override
-        public void addViewControllers(ViewControllerRegistry registry) {
-            registry.addViewController("/errorPage").setViewName("errorPage");
         }
     }
 }

@@ -34,6 +34,23 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-resolver-dns-native-macos</artifactId>
             <version>${netty.version}</version>

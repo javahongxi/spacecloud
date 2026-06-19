@@ -10,6 +10,33 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         enabled: true
+    sentinel:
+      transport:
+        dashboard: localhost:8081
+      eager: true
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: 7fDJZBbiLzO2
+            group-id: SENTINEL_GROUP
+            data-id: cloud.sample.consumer.flow
+            data-type: json
+            rule-type: flow
+        ds2:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: 7fDJZBbiLzO2
+            group-id: SENTINEL_GROUP
+            data-id: cloud.sample.consumer.degrade
+            data-type: json
+            rule-type: degrade
+
+feign:
+  sentinel:
+    enabled: true
 
 management:
   tracing:

@@ -38,6 +38,19 @@
         </dependency>
 
         <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-datasource</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo-spring-boot-starter</artifactId>
             <version>${dubbo.version}</version>

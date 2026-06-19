@@ -38,6 +38,37 @@ spring:
                     pattern: /provider-dubbo-sample/**
               filters:
                 - StripPrefix=1
+    sentinel:
+      transport:
+        dashboard: localhost:8081
+      eager: true
+      filter:
+        enabled: true
+      scg:
+        order: -100
+        fallback:
+          mode: response
+          response-status: 444
+          response-body: '{"code":444,"msg":"Sentinel gateway block"}'
+      datasource:
+        ds1:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: 7fDJZBbiLzO2
+            group-id: SENTINEL_GROUP
+            data-id: cloud.sample.gateway.gw-api-group
+            data-type: json
+            rule-type: gw-api-group
+        ds2:
+          nacos:
+            server-addr: 127.0.0.1:8848
+            username: nacos
+            password: 7fDJZBbiLzO2
+            group-id: SENTINEL_GROUP
+            data-id: cloud.sample.gateway.gw-flow
+            data-type: json
+            rule-type: gw-flow
 
 management:
   tracing:

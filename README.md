@@ -14,8 +14,6 @@ Spring Cloud 生态研究（Based on **Spring Boot 3.5.x** and **Spring Cloud Al
 | cloud-consumer-dubbo-sample    | consumer-dubbo    | -     | Dubbo Consumer        |
 | cloud-sample-api               | api               | -     | interface             |
 | cloud-nacos-config-sample      | config            | 8761  | Nacos Config          |
-| cloud-sentinel-sample          | sentinel          | 8767  | Sentinel              |
-| cloud-sentinel-gateway-sample  | sentinel-gateway  | 8768  | Gateway with Sentinel |
 | cloud-stream-sample            | stream            | 8769  | Spring Cloud Stream   |
 
 <picture>
@@ -94,14 +92,61 @@ curl -X POST http://localhost:8764/provider-dubbo-sample/api/echo -H "Content-Ty
 curl 'http://localhost:8764/provider-dubbo-sample/api/greet/lily?lang=zh'
 ```
 
-### 带哨兵的网关演示
-执行`start-all.sh`后手动启动 sentinel-gateway
-```shell
-curl 'http://localhost:8768/consumer-sample/hi?name=hongxi'
-curl 'http://localhost:8768/consumer-reactive-sample/hi?name=hongxi'
-curl http://localhost:8768/gateway
+### sentinel gateway 演示
+`cloud-gateway-sample`集成了sentinel，并采用nacos配置规则，规则示例如下 <br>
+group-id: SENTINEL_GROUP <br>
+data-id: cloud.sample.gateway.gw-api-group
+```json
+[
+  {
+    "apiName": "consumer_reactive_api",
+    "predicateItems": [
+      {
+        "pattern": "/consumer-reactive-sample/**",
+        "matchStrategy": 1
+      }
+    ]
+  },
+  {
+    "apiName": "consumer_api",
+    "predicateItems": [
+      {
+        "pattern": "/consumer-sample/**",
+        "matchStrategy": 1
+      }
+    ]
+  }
+]
 ```
-第一个url快速访问几次会触发限流
+group-id: SENTINEL_GROUP <br>
+data-id: cloud.sample.gateway.gw-flow
+```json
+[
+  {
+    "resource": "consumer_reactive_api",
+    "resourceMode": 1,
+    "count": 10
+  },
+  {
+    "resource": "consumer_api",
+    "resourceMode": 1,
+    "count": 5
+  },
+  {
+    "resource": "consumer-reactive-sample",
+    "resourceMode": 0,
+    "count": 20
+  }
+]
+```
+演示：在浏览器快速刷新访问几次如下接口
+```text
+http://localhost:8764/consumer-sample/hi?name=hongxi
+```
+触发限流时返回
+```json
+{"code":444,"msg":"Sentinel gateway block"}
+```
 
 ### 其他演示
 见相关模块下的README
