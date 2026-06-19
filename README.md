@@ -14,7 +14,7 @@ Spring Cloud 生态研究（Based on **Spring Boot 3.5.x** and **Spring Cloud Al
 | cloud-consumer-dubbo-sample    | consumer-dubbo    | -     | Dubbo Consumer        |
 | cloud-sample-api               | api               | -     | interface             |
 | cloud-nacos-config-sample      | config            | 8761  | Nacos Config          |
-| cloud-stream-sample            | stream            | 8769  | Spring Cloud Stream   |
+| cloud-stream-sample            | stream            | -     | Spring Cloud Stream   |
 
 <picture>
   <source srcset="arch.svg" type="image/svg+xml">
@@ -148,7 +148,21 @@ http://localhost:8764/consumer-sample/hi?name=hongxi
 {"code":444,"msg":"Sentinel gateway block"}
 ```
 
-### 其他演示
-见相关模块下的README
+### Stream 演示
+#### Run RocketMQ locally
+download [rocketmq-all-5.5.0-bin-release.zip](https://dist.apache.org/repos/dist/release/rocketmq/5.5.0/rocketmq-all-5.5.0-bin-release.zip)
+```shell
+bin/mqnamesrv
+bin/mqbroker -n localhost:9876 --enable-proxy
+```
+
+#### Create Topic and Consumer Group
+```shell
+bin/mqadmin updateTopic -n localhost:9876 -c DefaultCluster -t stream-demo-topic -a +message.type=NORMAL
+bin/mqadmin updateSubGroup -n localhost:9876 -c DefaultCluster -g stream-demo-consumer-group
+```
+
+#### Run Demo
+启动`stream`，观察日志
 
 &copy; [hongxi.org](http://hongxi.org)
