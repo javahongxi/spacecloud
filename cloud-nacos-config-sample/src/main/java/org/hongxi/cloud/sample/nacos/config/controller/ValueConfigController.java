@@ -1,4 +1,4 @@
-package org.hongxi.cloud.sample.nacos.config;
+package org.hongxi.cloud.sample.nacos.config.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;

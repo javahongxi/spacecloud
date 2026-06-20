@@ -1,4 +1,4 @@
-package org.hongxi.cloud.sample.nacos.config;
+package org.hongxi.cloud.sample.nacos.config.controller;
 
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.alibaba.nacos.api.config.ConfigService;

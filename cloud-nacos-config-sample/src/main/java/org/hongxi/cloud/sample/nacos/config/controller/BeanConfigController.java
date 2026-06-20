@@ -1,4 +1,4 @@
-package org.hongxi.cloud.sample.nacos.config;
+package org.hongxi.cloud.sample.nacos.config.controller;
 
 import org.hongxi.cloud.sample.nacos.config.properties.AgentProperties;
 import org.springframework.beans.factory.annotation.Autowired;
