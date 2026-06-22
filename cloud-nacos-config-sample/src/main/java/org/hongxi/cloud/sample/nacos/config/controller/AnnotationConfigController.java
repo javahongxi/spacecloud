@@ -2,16 +2,18 @@ package org.hongxi.cloud.sample.nacos.config.controller;
 
 import com.alibaba.cloud.nacos.annotation.NacosConfig;
 import com.alibaba.cloud.nacos.annotation.NacosConfigListener;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by javahongxi on 2026/6/1.
  */
-@Slf4j
 @RestController
 public class AnnotationConfigController {
+
+    private static final Logger log = LoggerFactory.getLogger(AnnotationConfigController.class);
 
     @NacosConfig(dataId = "github.username", group = "DEFAULT_GROUP")
     private String name;

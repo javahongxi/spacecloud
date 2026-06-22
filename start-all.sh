@@ -113,6 +113,10 @@ stop_all() {
 # README 中的演示 URL 列表
 demo_urls() {
   echo "========== 访问演示 URL =========="
+  local VERIFY_PASS=0
+  local VERIFY_FAIL=0
+  local VERIFY_FAILED_LIST=()
+
   local urls=(
     "http://localhost:8763/hi?name=hongxi|直接访问 consumer-reactive"
     "http://localhost:8764/consumer-reactive-sample/hi?name=hongxi|通过网关访问 consumer-reactive"
@@ -128,16 +132,37 @@ demo_urls() {
     echo ""
     echo "[$desc]"
     echo "  URL: $url"
-    local response
-    response=$(curl -s -w '\n  HTTP Status: %{http_code}' "$url" 2>/dev/null)
-    if [ $? -eq 0 ]; then
-      echo "  响应: $response"
+    local raw_response
+    raw_response=$(curl -s -w '\n%{http_code}' --max-time 10 "$url" 2>/dev/null)
+    local http_code
+    http_code=$(echo "$raw_response" | tail -n1)
+    local body
+    body=$(echo "$raw_response" | sed '$d')
+    echo "  响应: $body"
+    echo "  HTTP Status: $http_code"
+    if [ "$http_code" = "200" ]; then
+      VERIFY_PASS=$((VERIFY_PASS + 1))
     else
-      echo "  请求失败"
+      VERIFY_FAIL=$((VERIFY_FAIL + 1))
+      VERIFY_FAILED_LIST+=("[$desc] $url (HTTP $http_code)")
     fi
   done
   echo ""
-  echo "=================================="
+  echo "=========================================="
+  echo "  验证结果汇总: 通过 $VERIFY_PASS 项, 失败 $VERIFY_FAIL 项"
+  echo "=========================================="
+  if [ "$VERIFY_FAIL" -eq 0 ]; then
+    echo ""
+    echo "  全部验证通过! 所有服务运行正常"
+    echo ""
+  else
+    echo ""
+    echo "  以下验证项失败:"
+    for failed in "${VERIFY_FAILED_LIST[@]}"; do
+      echo "    - $failed"
+    done
+    echo ""
+  fi
 }
 
 status_all() {

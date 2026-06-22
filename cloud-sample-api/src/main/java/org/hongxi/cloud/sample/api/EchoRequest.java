@@ -1,23 +1,9 @@
 package org.hongxi.cloud.sample.api;
 
+import java.io.Serial;
 import java.io.Serializable;
 
-public class EchoRequest implements Serializable {
-
-    private String message;
-
-    public EchoRequest() {
-    }
-
-    public EchoRequest(String message) {
-        this.message = message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
+public record EchoRequest(String message) implements Serializable {
+    @Serial
+    private static final long serialVersionUID = -2080533871181613309L;
 }

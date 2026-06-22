@@ -1,9 +1,10 @@
 package org.hongxi.cloud.sample.consumer.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.hongxi.cloud.sample.api.DemoService;
 import org.hongxi.cloud.sample.consumer.client.ProviderClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,10 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Created by javahongxi on 2026/6/1.
  */
-@Slf4j
 @RestController
 public class DemoController {
+
+    private static final Logger log = LoggerFactory.getLogger(DemoController.class);
 
     @Autowired
     private RestTemplate restTemplate;

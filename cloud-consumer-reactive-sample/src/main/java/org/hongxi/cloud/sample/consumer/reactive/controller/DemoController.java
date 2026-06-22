@@ -1,8 +1,9 @@
 package org.hongxi.cloud.sample.consumer.reactive.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.hongxi.cloud.sample.api.DemoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.ReactiveDiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,10 @@ import reactor.core.publisher.Mono;
 /**
  * Created by javahongxi on 2026/6/1.
  */
-@Slf4j
 @RestController
 public class DemoController {
+
+    private static final Logger log = LoggerFactory.getLogger(DemoController.class);
 
     @Autowired
     private WebClient webClient;
